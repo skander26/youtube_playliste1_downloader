@@ -53,6 +53,16 @@ async def get_playlist(request: PlaylistRequest):
             info = ydl.extract_info(request.url, download=False)
             
             if 'entries' not in info:
+                # Handle single video case
+                if 'id' in info and 'title' in info:
+                    videos = [{
+                        'id': info.get('id'),
+                        'title': info.get('title'),
+                        'thumbnail': info.get('thumbnail'),
+                        'duration': info.get('duration')
+                    }]
+                    return {"title": info.get('title'), "videos": videos}
+                
                 raise HTTPException(status_code=400, detail="Invalid playlist URL or no videos found")
 
             videos = []
@@ -66,7 +76,11 @@ async def get_playlist(request: PlaylistRequest):
                         'duration': entry.get('duration')
                     })
             return {"title": info.get('title'), "videos": videos}
+    except HTTPException:
+        raise
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/download")

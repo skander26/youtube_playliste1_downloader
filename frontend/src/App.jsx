@@ -24,8 +24,9 @@ function App() {
       setPlaylist(res.data);
       setSelected(new Set());
     } catch (err) {
-      alert('Failed to fetch playlist. Please check the URL.');
       console.error(err);
+      const errorMessage = err.response?.data?.detail || 'Failed to fetch playlist. Please check the URL.';
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -143,8 +144,8 @@ function App() {
           className="text-center space-y-6 mb-12"
         >
           <div className="inline-flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-lg animate-pulse-glow">
-              <Sparkles size={32} className="text-white" />
+            <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg animate-pulse-glow bg-white/10 backdrop-blur-sm p-1">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain rounded-xl" />
             </div>
           </div>
 
