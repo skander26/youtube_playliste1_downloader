@@ -46,4 +46,6 @@ The frontend will start at `http://localhost:5173`.
 3.  Click **Load**.
 4.  Select the videos you want to download.
 5.  Choose **MP3** or **MP4**.
-6.  Click **Download**.
+6.  Click **Download** .
+
+**Have Fun**
